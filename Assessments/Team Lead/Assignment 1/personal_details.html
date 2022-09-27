@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+        body {
+            overflow-y: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body div div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        body div div a {
+            transition: all;
+            transition-duration: 0.5s;
+            padding: 10px;
+        }
+
+        body div div a:hover {
+            transform: scale(110%);
+        }
+
+        body div div a img {
+            width: 50px
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Personal Details</h1>
+        <div>
+            <div>
+                <a href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="linkedin">
+                </a>
+                <a href="#">
+                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="github">
+                </a>
+                <a href="#">
+                    <img src="https://www.freepnglogos.com/uploads/email-png/blue-email-box-circle-png-transparent-icon-2.png" alt="email">
+                </a>
+                
+                <a href="#" onclick="show_phone()">
+                    <img src="https://pnggrid.com/wp-content/uploads/2021/12/Tel-Phone-Icon-PNG-Transparent-Background.png" alt="phone">
+                </a>
+
+                <a href="#" onclick="show_bday()">
+                    <img src="https://icons-for-free.com/iconfiles/png/512/cake-1321215613168069161.png" alt="bday">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function show_phone() {
+            alert("Phone Number: XXXXX XXXXX");
+        }
+
+        function show_bday() {
+            alert("Birthday: XX - XX - XXXX");
+        }
+    </script>
+
+</body>
+</html>
