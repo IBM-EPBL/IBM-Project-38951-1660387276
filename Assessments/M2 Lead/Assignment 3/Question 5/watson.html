@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url(1743629.png);
+            background-size: 100vw 100vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- https://web-chat.global.assistant.watson.appdomain.cloud/preview.html?backgroundImageURL=https%3A%2F%2Fjp-tok.assistant.watson.cloud.ibm.com%2Fpublic%2Fimages%2Fupx-532b7fe1-76d3-4797-bb89-8588da6cd08e%3A%3A33797903-88da-42b8-8af1-428bacd7f4c3&integrationID=3f48742c-1e5e-4ead-ada4-017fc148c3ea&region=jp-tok&serviceInstanceID=532b7fe1-76d3-4797-bb89-8588da6cd08e -->
+    <script>
+        window.watsonAssistantChatOptions = {
+          integrationID: "3f48742c-1e5e-4ead-ada4-017fc148c3ea", // The ID of this integration.
+          region: "jp-tok", // The region your integration is hosted in.
+          serviceInstanceID: "532b7fe1-76d3-4797-bb89-8588da6cd08e", // The ID of your service instance.
+          onLoad: function(instance) { instance.render(); }
+        };
+        setTimeout(function(){
+          const t=document.createElement('script');
+          t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+          document.head.appendChild(t);
+        });
+      </script>
+</body>
+</html>
