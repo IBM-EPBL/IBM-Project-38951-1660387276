@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Demo</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        h1::after {
+            content: "\A(Fetched from cloud)";
+            font-size: 15px;
+            white-space: pre;
+            font-weight: lighter;
+        }
+
+        #image-container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #image-container img {
+            width: 200px;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Some nice pictures</h1>
+    
+    <div id="image-container">
+        <img src="https://amazing-bucket.s3.jp-tok.cloud-object-storage.appdomain.cloud/pic1.jpg" alt="picture#1">
+        <img src="https://amazing-bucket.s3.jp-tok.cloud-object-storage.appdomain.cloud/pic2.jpg" alt="picture#2">
+        <img src="https://amazing-bucket.s3.jp-tok.cloud-object-storage.appdomain.cloud/pic3.jpg" alt="picture#3">
+        <img src="https://amazing-bucket.s3.jp-tok.cloud-object-storage.appdomain.cloud/pic4.jpg" alt="picture#4">
+        <img src="https://amazing-bucket.s3.jp-tok.cloud-object-storage.appdomain.cloud/pic5.jpg" alt="picture#5">
+    </div>
+    
+</body>
+</html>
