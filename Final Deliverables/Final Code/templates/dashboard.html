@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/dashboard_style.css">
+    <!-- {{ url_for('static', filename='dashboard_style.css') }} -->
+    <title>Dashboard</title>
+</head>
+<body>
+    <nav id="nav">
+        <div>
+            <span>{{ greeting }}</span> <a href="/logout">(logout)</a>
+        </div>
+    </nav>
+
+    <div id="table-container">
+        {% if tableContents %}
+            <table id="inventory">
+                <tr>
+                    <th>Commodity ID</th>
+                    <th>Commodity</th>
+                    <th>Original Quantity</th>
+                    <th>Current Quantity</th>
+                    <th>Rate</th>
+                    <th>Restocking Date</th>
+                    <th>Last Modification Date</th>
+                </tr>
+                {% for index in range(tableContents[(tableContents.keys()|list)[0]]|length) %}
+                    <tr>
+                        {% for attribute in tableContents.keys() %}
+                            <td>{{ tableContents[attribute][index] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <p>No content</p>
+        {% endif %}
+    </div>
+
+    <div id="modification-container">
+        <div class="outer-container">
+            <button class="modification-btn" onclick="hide('SELF-REVEAL', 'add-container')">Add</button>
+            <div id="add-container" class="hidden">
+                <input type="text" placeholder="Commodity ID">
+                <input type="text" placeholder="Commodity name">
+                <input type="text" placeholder="Quantity">
+                <input type="text" placeholder="Rate">
+                <button onclick="verify_and_insert_to_table()" class="modification-btn">Save</button>
+            </div>
+        </div>
+        
+        
+        <div class="outer-container">
+            <button class="modification-btn" onclick="hide('SELF-REVEAL', 'remove-container')">Remove</button>
+            <div id="remove-container" class="hidden">
+                <input type="text" placeholder="Commodity ID">
+                <button onclick="remove_item()" class="modification-btn">Remove</button>
+            </div>
+        </div>
+        
+
+        <div class="outer-container">
+            <button class="modification-btn" onclick="hide('SELF-REVEAL', 'update-container')">Update</button>
+            <div id="update-container" class="hidden">
+                <input type="text" placeholder="Commodity ID">
+                <input type="text" placeholder="New Quantity">
+                <button onclick="update_qty()" class="modification-btn">Save</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="../static/dashboard_script.js"></script>
+</body>
+</html>
