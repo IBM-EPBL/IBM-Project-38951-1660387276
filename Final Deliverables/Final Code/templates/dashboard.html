@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #nav {
+            width: 100vw;
+            border: 1px solid red;
+            text-align: center;
+        }
+
+        #inventory {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        #inventory * {
+            border: 1px solid black;
+        }
+
+        #add-container {
+            display: none;
+        }
+
+        #update-container {
+            display: none;
+        }
+    </style>
+    <title>Dashboard</title>
+</head>
+<body>
+    <nav id="nav">
+        <span>{{ greeting }}</span>
+    </nav>
+
+    <div id="table-container">
+        {% if tableContents %}
+            <table id="inventory">
+                <tr>
+                    <th>Commodity ID</th>
+                    <th>Commodity</th>
+                    <th>Original Quantity</th>
+                    <th>Current Quantity</th>
+                    <th>Rate</th>
+                    <th>Modification Date</th>
+                </tr>
+                {% for index in range(tableContents[(tableContents.keys()|list)[0]]|length) %}
+                    <tr onclick="update_qty()">
+                        {% for attribute in tableContents.keys() %}
+                            <td>{{ tableContents[attribute][index] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <p>No content</p>
+        {% endif %}
+    </div>
+
+    <div id="modification-container">
+        <button class="modification-btn" onclick="reveal_addition_wizard()">Add</button>
+        <div id="add-container">
+            <input type="text" placeholder="Commodity ID">
+            <input type="text" placeholder="Commodity name">
+            <input type="text" placeholder="Quantity">
+            <input type="text" placeholder="Rate">
+            <button onclick="verify_and_insert_to_table()" class="modification-btn">Save</button>
+        </div>
+        <button class="modification-btn">Remove</button>
+        <button class="modification-btn" onclick="reveal_updation_wizard()">Update</button>
+        <div id="update-container">
+            <input type="text" placeholder="Commodity ID">
+            <input type="text" placeholder="New Quantity">
+            <button onclick="update_qty()" class="modification-btn">Save</button>
+        </div>
+    </div>
+
+    <script>
+
+        const cidFormat = /^[a-zA-Z0-9_]+$/;
+        const cnameFormat = /^[a-zA-Z0-9_ ]+$/;
+        const qtyFormat = /^\d+$/;
+        const rateFormat = /^\d+.?\d*$/;
+
+        const addBtn = document.getElementsByClassName('modification-btn')[0];
+        const saveBtn = document.getElementsByClassName('modification-btn')[1];
+        const removeBtn = document.getElementsByClassName('modification-btn')[2];
+        const updateBtn = document.getElementsByClassName('modification-btn')[3];
+
+        const table = document.getElementById('inventory');
+        
+        function reveal_updation_wizard() {
+            document.getElementById('update-container').style.display = 'block';
+        }
+
+        function hide_updation_wizard() {
+            document.getElementById('update-container').style.display = 'none';
+        }
+
+        function reveal_addition_wizard() {
+            document.getElementById('add-container').style.display = 'block';
+        }
+
+        function hide_addition_wizard() {
+            document.getElementById('add-container').style.display = 'none';
+        }
+
+        function verify_and_insert_to_table() {
+            let allGood = true;
+            let errString = 'Enter ';
+
+            let cid = document.getElementById('add-container').children[0].value.trim();
+            let cname = document.getElementById('add-container').children[1].value.trim();
+            let qty = document.getElementById('add-container').children[2].value.trim();
+            let rate = document.getElementById('add-container').children[3].value.trim();
+
+
+            if(!cidFormat.test(cid)) { errString += 'Commodity ID, '; allGood = false; }
+            if(!cnameFormat.test(cname)) { errString += 'Commodity name, '; allGood = false; }
+            if(!qtyFormat.test(qty)) { errString += 'Quantity, '; allGood = false; }
+            if(!rateFormat.test(rate)) { errString += 'Rate '; allGood = false; }
+            errString += 'correctly.';
+
+            if(!allGood) alert(errString);
+            else {
+
+                let dateTime = new Date().toLocaleString();
+                let array = [cid, cname, qty, qty, rate, dateTime];
+                addBtn.disabled = true;
+                removeBtn.disabled = true;
+                saveBtn.disabled = true;
+                updateBtn.disabled = true;
+
+                xhr = new XMLHttpRequest();
+                xhr.open("POST", "/add-commodity", true);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        alert(xhr.responseText);
+                        addBtn.disabled = false;
+                        removeBtn.disabled = false;
+                        saveBtn.disabled = false;
+                        updateBtn.disabled = false;
+
+                        if(xhr.status === 200) {
+                            let row = table.insertRow(-1);
+
+                            for(let cell = 0; cell < 6; ++cell) {
+                                let newCell = row.insertCell(cell);
+                                newCell.innerHTML = array[cell];
+                            }
+                        }
+                        hide_addition_wizard();
+                    }
+                }
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.send(`cid=${cid}&cname=${cname}&oqty=${qty}&cqty=${qty}&rate=${rate}&date=${dateTime}`);
+            }
+
+        }
+
+
+        function update_qty() {
+            let allGood = true;
+
+            let targetCommodity = document.getElementById('update-container').children[0].value.trim();
+            let newQty = document.getElementById('update-container').children[1].value.trim();
+            
+            if(!cidFormat.test(targetCommodity) || !qtyFormat.test(newQty)) allGood = false;
+
+            if(!allGood) alert('Detail(s) entered in wrong format.');
+            else {
+                
+            }
+            
+
+        }
+
+
+
+    </script>
+</body>
+</html>
