@@ -2,14 +2,14 @@ import ibm_db_dbi as db
 
 
 print('[CONNECTING]')
-conn = db.connect("DATABASE=bludb;"
-                      "HOSTNAME=0c77d6f2-5da9-48a9-81f8-86b520b87518.bs2io90l08kqb1od8lcg.databases.appdomain.cloud;"
-                      "PORT=31198;"
-                      "PROTOCOL=TCPIP;"
-                      "SECURITY=SSL;"
+conn = db.connect("DATABASE=db_name;"
+                      "HOSTNAME=host_name;"
+                      "PORT=port;"
+                      "PROTOCOL=pcol;"
+                      "SECURITY=sec;"
                       "SSLServerCertificate=DigiCertGlobalRootCA.crt;"
-                      "UID=rwf19214;"
-                      "PWD=N7tcvzquirvaYxzW;", '', '')
+                      "UID=user_id;"
+                      "PWD=password;", '', '')
 
 print('[CONNECTED]')
 
